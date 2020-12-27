@@ -21,16 +21,10 @@ namespace Expenditures.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public TransactionWithContextController(ITransactionService tranasctionService, ICategoryService categoryService)
+        public TransactionWithContextController(ITransactionService tranasctionService, ICategoryService categoryService, IMapper mapper)
         {
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<TransactionModel, TransactionBL>().ReverseMap();
-                cfg.CreateMap<CategoryModel, CategoryBL>().ReverseMap();
-
-            });
-
-            _mapper = new Mapper(mapperConfig);
+           
+            _mapper = mapper;
 
             _transactionService = tranasctionService;
             _categoryService = categoryService;
@@ -40,8 +34,8 @@ namespace Expenditures.Controllers
         // GET: TransactionWithContext
         public ActionResult Index()
         {
-            var transactions = _mapper.Map<IEnumerable<TransactionModel>>(_transactionService.GetAll());        
-
+            var transactions = _mapper.Map<IEnumerable<TransactionModel>>(_transactionService.GetAll());
+            
             return View(transactions);
         }
 
@@ -84,6 +78,7 @@ namespace Expenditures.Controllers
         public ActionResult Edit(int id)
         {
             var updatedModel = _mapper.Map<TransactionModel>(_transactionService.GetById(id));
+            updatedModel.CaetgoriesList = SelectCategories();
 
             if (updatedModel != null)
             {
@@ -97,6 +92,8 @@ namespace Expenditures.Controllers
         public ActionResult Edit(int id, TransactionModel model)
         {
             model.UpdatedDate = DateTime.UtcNow;
+
+
             var updatedModel = _mapper.Map<TransactionBL>(model);
             try
             {

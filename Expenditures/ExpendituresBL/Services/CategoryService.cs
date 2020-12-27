@@ -18,15 +18,11 @@ namespace ExpendituresBL.Services
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryService(ICategoryRepository repository)
+        public CategoryService(ICategoryRepository repository, IMapper mapper)
         {
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Category, CategoryBL>().ReverseMap();
-            });
-
+           
             _categoryRepository = repository;
-            _mapper = new Mapper(mapperConfig);
+            _mapper = mapper;
         }
 
         public CategoryBL Create(CategoryBL model)

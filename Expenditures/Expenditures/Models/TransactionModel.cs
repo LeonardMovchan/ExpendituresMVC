@@ -13,6 +13,11 @@ namespace Expenditures.Models
         public decimal Value { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
+
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ExpenditureDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; }
         [DataType(DataType.Date)]

@@ -10,6 +10,7 @@ using LightInject;
 using ExpendituresBL;
 using System.Web.Mvc;
 using LightInject.Mvc;
+using System.Web.Http;
 
 namespace Expenditures.App_Start
 {
@@ -19,13 +20,14 @@ namespace Expenditures.App_Start
         {
             var container = new ServiceContainer();
             container.RegisterControllers(Assembly.GetExecutingAssembly());
-
+            container.RegisterApiControllers();
             container.EnablePerWebRequestScope();
+            container.EnableWebApi(GlobalConfiguration.Configuration);
 
-            //var config = new MapperConfiguration(cfg => cfg.AddProfiles(
-            //      new List<Profile>() { new WebAutomapperProfile(), new BLAutomapperProfile() }));
+            var config = new MapperConfiguration(cfg => cfg.AddProfiles(
+                  new List<Profile>() { new WebAutomapperProfile(), new BLAutomapperProfile() }));
 
-            //container.Register(c => config.CreateMapper());
+            container.Register(c => config.CreateMapper());
 
             container = BLLightInjectCongiguration.Configuration(container);
 

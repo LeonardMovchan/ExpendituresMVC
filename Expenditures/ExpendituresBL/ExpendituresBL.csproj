@@ -68,13 +68,13 @@
     <Compile Include="Services\TransactionService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ExpendituresDAL\ExpendituresDAL.csproj">
       <Project>{b4fc6665-f19b-4428-b0ba-9ada52ebfdc9}</Project>
       <Name>ExpendituresDAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

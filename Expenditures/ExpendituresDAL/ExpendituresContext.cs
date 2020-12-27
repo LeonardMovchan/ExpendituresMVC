@@ -17,6 +17,5 @@ namespace ExpendituresDAL
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Transaction> Tranasctions { get; set; }
-    
     }
 }

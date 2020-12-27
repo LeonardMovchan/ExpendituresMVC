@@ -18,14 +18,11 @@ namespace ExpendituresBL.Services
         private readonly IMapper _mapper;
         private readonly ITransactionRepository _tranasctionRepository;
 
-        public TransactionService(ITransactionRepository tranasctionRepository)
+        public TransactionService(ITransactionRepository tranasctionRepository, IMapper mapper)
         {
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Transaction,TransactionBL>().ReverseMap();
-            });
+           
 
-            _mapper = new Mapper(mapperConfig);
+            _mapper = mapper;
             _tranasctionRepository = tranasctionRepository;
         }
 

@@ -14,14 +14,10 @@ namespace Expenditures.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICategoryService _categoryService;
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
-            var mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<CategoryModel, CategoryBL>().ReverseMap();
-            });
-
-            _mapper = new Mapper(mapperConfig);
+           
+            _mapper = mapper;
 
             _categoryService = categoryService;
         }
@@ -66,7 +62,7 @@ namespace Expenditures.Controllers
             }
             catch
             {
-                return View();
+                throw new Exception("Failed to create an item");    
             }
         }
 
@@ -103,7 +99,7 @@ namespace Expenditures.Controllers
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
@@ -125,7 +121,7 @@ namespace Expenditures.Controllers
             }
             catch
             {
-                return View();
+                throw new Exception("There is no item to delete");
             }
         }
 
